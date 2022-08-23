@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content%}
+<form action="" class='w-25'>
+    <section class='d-flex justify-content-center flex-column w-100'>
+      <p class ='m-3 form-label'>Ingresa tu csv</p>
+      <input type="file" name="csv" id="" required class='m-3 form-control'/>
+      <button type="submit" class='m-auto btn btn-primary'>Generar test!</button>
+    </section>
+</form>
+{% endblock %}
