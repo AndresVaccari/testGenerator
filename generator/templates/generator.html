@@ -1,11 +1,38 @@
-{% extends 'base.html' %}
-{% load static %} 
-{% block content%}
-<form action="" class='w-25'>
-    <section class='d-flex justify-content-center flex-column w-100'>
-      <p class ='m-3 form-label'>Ingresa tu csv</p>
-      <input type="file" name="csv" id="" required class='m-3 form-control'/>
-      <button type="submit" class='m-auto btn btn-primary'>Generar test!</button>
-    </section>
+{% extends 'base.html' %} {% load static %} {% block content%}
+<form enctype="multipart/form-data" class="w-50" method="post">
+  {% csrf_token %} {% if form %}
+  <section class="d-flex justify-content-center flex-column w-100">
+    <p class="m-3 form-label">Ingresa tu csv</p>
+    {{form.archivo}}
+    <p class="m-3 form-label">Cantidad de preguntas</p>
+    {{form.cantidadPreguntas}} {% if error %}
+    <p class="p-3 bg-danger text-white rounded-3">Error: {{error}}</p>
+    {% endif %}
+    <button type="submit" class="m-auto btn btn-primary">Generar test!</button>
+  </section>
+  {% else %}
+  <section class="d-flex justify-content-center flex-column w-100">
+    <table class="table">
+      <thead>
+        <tr>
+          {% for item in header %}
+          <th scope="col">{{item}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for preguntas in listaPreguntas %}
+        <tr>
+          {% for pregunta in preguntas %}
+          <td>{{ pregunta }}</td>
+          {% endfor %} {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="m-auto mb-3 btn btn-primary">
+      Generar otro Test
+    </button>
+  </section>
+  {% endif %}
 </form>
 {% endblock %}
